@@ -6,7 +6,7 @@
     <h1>Applications</h1>
     <ul>
     {% for application in object_list %}
-        <li><a href="{% url 'update_application' application.id %}">{{ application.event_name }}</a></li>
+        <li><a href={% url 'update_application' application.id %}>{{ application.event_name }}</a></li>
     {% empty %}
         <li>No applications yet.</li>
     {% endfor %}

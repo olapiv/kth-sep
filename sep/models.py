@@ -1,9 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
-
-
 class EventRequestApplication(models.Model):
     event_name = models.CharField(max_length=255, default='')
     client_name = models.CharField(max_length=255)
@@ -24,4 +21,19 @@ class EventRequestApplication(models.Model):
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=STATUS.created)
 
 
+class SubteamTask(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+
+    class STATUS:
+        todo = 'todo'
+        in_progress = 'in_progress'
+        done = 'done'
+
+    STATUS_CHOICES = (
+        (STATUS.todo, 'todo'),
+        (STATUS.in_progress, 'in_progress'),
+        (STATUS.done, 'done')
+    )
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=STATUS.todo)
 

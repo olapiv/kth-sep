@@ -9,5 +9,9 @@ from sep import views
 urlpatterns = [
     path('applications/create', views.EventRequestApplicationCreate.as_view(), name='create_application'),
     path('applications', views.EventRequestApplicationList.as_view(), name="list_applications"),
-    path('applications/<int:pk>/', views.EventRequestApplicationUpdate.as_view(), name="update_application")
+    path('applications/<int:pk>/', views.EventRequestApplicationUpdate.as_view(), name="update_application"),
+
+    path('tasks/create', views.SubteamTaskCreate.as_view(), name='create_task'),
+    path('tasks', views.SubteamTaskList.as_view(), name='list_tasks'),
+    path('tasks/<int:pk>', views.SubteamTaskUpdate.as_view(), name='update_task'),
 ]

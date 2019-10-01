@@ -1,23 +1,45 @@
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
-from sep.models import EventRequestApplication
+from sep.models import EventRequestApplication, SubteamTask
 
 
-class EventRequestApplicationMixin(object):
+# Application
+class EventRequestApplicationFormMixin(object):
     model = EventRequestApplication
-    template_name = 'sep/application/form.html'
+    template_name = 'sep/form.html'
     success_url = '/sep/applications'
     fields = '__all__'
 
 
-class EventRequestApplicationUpdate(EventRequestApplicationMixin, UpdateView):
+class EventRequestApplicationUpdate(EventRequestApplicationFormMixin, UpdateView):
     pass
 
 
-class EventRequestApplicationCreate(EventRequestApplicationMixin, CreateView):
+class EventRequestApplicationCreate(EventRequestApplicationFormMixin, CreateView):
     pass
 
 
 class EventRequestApplicationList(ListView):
     model = EventRequestApplication
-    template_name = 'sep/application/list.html'
+    template_name = 'sep/list_application.html'
+
+
+# Subteam tasks
+class SubteamTaskFormMixin(object):
+    model = SubteamTask
+    template_name = 'sep/form.html'
+    success_url = '/sep/tasks'
+    fields = '__all__'
+
+
+class SubteamTaskUpdate(SubteamTaskFormMixin, UpdateView):
+    pass
+
+
+class SubteamTaskCreate(SubteamTaskFormMixin, CreateView):
+    pass
+
+
+class SubteamTaskList(ListView):
+    model = SubteamTask
+    template_name = 'sep/list_subteam_tasks.html'
