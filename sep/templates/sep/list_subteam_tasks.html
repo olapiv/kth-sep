@@ -1,0 +1,14 @@
+{% extends 'sep/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <h1>Subteam tasks</h1>
+    <ul>
+    {% for task in object_list %}
+        <li><a href="{% url 'update_task' task.id %}">{{ task.name }}</a></li>
+    {% empty %}
+        <li>No tasks yet.</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
