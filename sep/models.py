@@ -37,3 +37,21 @@ class SubteamTask(models.Model):
     )
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=STATUS.todo)
 
+
+class ExtraBudgetRequest(models.Model):
+    amount_required = models.IntegerField()
+    reason = models.CharField(max_length=255)
+
+    class STATUS:
+        requested = 'requested'
+        negotiating = 'negotiating'
+        accepted = 'accepted'
+        rejected = 'rejected'
+
+    STATUS_CHOICES = (
+        (STATUS.requested, 'requested'),
+        (STATUS.negotiating, 'negotiating'),
+        (STATUS.accepted, 'accepted'),
+        (STATUS.rejected, 'rejected'),
+    )
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=STATUS.requested)

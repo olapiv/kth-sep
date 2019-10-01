@@ -14,4 +14,8 @@ urlpatterns = [
     path('tasks/create', views.SubteamTaskCreate.as_view(), name='create_task'),
     path('tasks', views.SubteamTaskList.as_view(), name='list_tasks'),
     path('tasks/<int:pk>', views.SubteamTaskUpdate.as_view(), name='update_task'),
+
+    path('budget-requests/create', views.ExtraBudgetRequestCreate.as_view(), name='create_budget_request'),
+    path('budget-requests', views.ExtraBudgetRequestList.as_view(), name='list_budget_request'),
+    path('budget-requests/<int:pk>', views.ExtraBudgetRequestUpdate.as_view(), name='update_budget_request'),
 ]
