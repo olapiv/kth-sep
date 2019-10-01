@@ -55,3 +55,20 @@ class ExtraBudgetRequest(models.Model):
         (STATUS.rejected, 'rejected'),
     )
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=STATUS.requested)
+
+
+class StaffRequest(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+
+    class CONTRACT_TYPE:
+        full_time = 'full_time'
+        part_time = 'part_time'
+
+
+    CONTRACT_TYPE_CHOICES = (
+        (CONTRACT_TYPE.full_time, 'full_time'),
+        (CONTRACT_TYPE.part_time, 'part_time')
+    )
+    contract_type = models.CharField(max_length=50, choices=CONTRACT_TYPE_CHOICES, default=CONTRACT_TYPE.full_time)
+    years_of_experience = models.IntegerField()

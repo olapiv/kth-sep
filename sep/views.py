@@ -1,6 +1,6 @@
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
-from sep.models import EventRequestApplication, SubteamTask, ExtraBudgetRequest
+from sep.models import EventRequestApplication, SubteamTask, ExtraBudgetRequest, StaffRequest
 
 
 # Application
@@ -64,3 +64,24 @@ class ExtraBudgetRequestCreate(ExtraBudgetRequestFormMixin, CreateView):
 class ExtraBudgetRequestList(ListView):
     model = ExtraBudgetRequest
     template_name = 'sep/list_extra_budget_request.html'
+
+
+# Staff request
+class StaffRequestFormMixin(object):
+    model = StaffRequest
+    template_name = 'sep/form.html'
+    success_url = '/sep/staff-requests'
+    fields = '__all__'
+
+
+class StaffRequestUpdate(StaffRequestFormMixin, UpdateView):
+    pass
+
+
+class StaffRequestCreate(StaffRequestFormMixin, CreateView):
+    pass
+
+
+class StaffRequestList(ListView):
+    model = StaffRequest
+    template_name = 'sep/list_staff_request.html'

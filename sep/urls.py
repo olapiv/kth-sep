@@ -18,4 +18,9 @@ urlpatterns = [
     path('budget-requests/create', views.ExtraBudgetRequestCreate.as_view(), name='create_budget_request'),
     path('budget-requests', views.ExtraBudgetRequestList.as_view(), name='list_budget_request'),
     path('budget-requests/<int:pk>', views.ExtraBudgetRequestUpdate.as_view(), name='update_budget_request'),
+
+    path('staff-requests/create', views.StaffRequestCreate.as_view(), name='create_staff_request'),
+    path('staff-requests', views.StaffRequestList.as_view(), name='list_staff_request'),
+    path('staff-requests/<int:pk>', views.StaffRequestUpdate.as_view(), name='update_staff_request'),
+
 ]
