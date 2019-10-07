@@ -30,13 +30,13 @@ class HomeView(RedirectAdminLoginMixin, TemplateView):
 class EventRequestApplicationForm(ModelForm):
     class Meta:
         model = EventRequestApplication
-        fields = '__all__'
+        exclude = ('user',)
 
 
 class EventRequestApplicationCSOForm(ModelForm):
     class Meta:
         model = EventRequestApplication
-        fields = '__all__'
+        exclude = ('user',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -48,7 +48,7 @@ class EventRequestApplicationCSOForm(ModelForm):
 class EventRequestApplicationSCSOForm(ModelForm):
     class Meta:
         model = EventRequestApplication
-        fields = '__all__'
+        exclude = ('user',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -59,7 +59,7 @@ class EventRequestApplicationSCSOForm(ModelForm):
 class EventRequestApplicationAMForm(ModelForm):
     class Meta:
         model = EventRequestApplication
-        fields = '__all__'
+        exclude = ('user',)
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -70,7 +70,7 @@ class EventRequestApplicationAMForm(ModelForm):
 class EventRequestApplicationFMForm(ModelForm):
     class Meta:
         model = EventRequestApplication
-        fields = '__all__'
+        exclude = ('user',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -85,8 +85,6 @@ class EventRequestApplicationFormMixin(object):
 
     def get_form_class(self):
         user = self.request.user
-        print("user:", user)
-        print("user.groups.all():", user.groups.all())
         if user.is_superuser:
             return EventRequestApplicationForm
         elif user.groups.filter(name = "customer_service_officer").exists():
@@ -97,6 +95,11 @@ class EventRequestApplicationFormMixin(object):
             return EventRequestApplicationAMForm
         elif user.groups.filter(name = "financial_manager").exists():
             return EventRequestApplicationFMForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        print("form.instance.user: ", form.instance.user)
+        return super().form_valid(form)
 
 
 class EventRequestApplicationUpdate(RedirectAdminLoginMixin, PermissionRequiredMixin, EventRequestApplicationFormMixin, UpdateView):
@@ -116,6 +119,8 @@ class EventRequestApplicationList(RedirectAdminLoginMixin, PermissionRequiredMix
         user = self.request.user
         if user.is_superuser or user.groups.filter(name = "senior_customer_service_officer").exists():
             return EventRequestApplication.objects.all()
+        elif user.groups.filter(name = "customer_service_officer").exists():
+            return EventRequestApplication.objects.filter(user=user).all()
         elif user.groups.filter(name = "administration_manager").exists():
             return EventRequestApplication.objects.filter(approved_by_senior_customer_service_officer=True).all()
         elif user.groups.filter(name = "financial_manager").exists():

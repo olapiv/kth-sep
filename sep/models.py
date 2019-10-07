@@ -15,6 +15,13 @@ class EventRequestApplication(models.Model):
     approved_by_financial_manager = models.BooleanField(default=False)
     approved_by_admin_manager = models.BooleanField(default=False)
 
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='event_requests_created'
+    )
+
 
 class SubteamTask(models.Model):
     name = models.CharField(max_length=255)

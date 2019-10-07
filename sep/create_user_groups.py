@@ -106,6 +106,7 @@ view_staffrequest = Permission.objects.get_or_create(codename='view_staffrequest
 
 customer_service_officer_group.permissions.add(add_event_request_application)
 customer_service_officer_group.permissions.add(view_eventrequestapplication)
+customer_service_officer_group.permissions.add(change_eventrequestapplication)
 
 senior_customer_service_officer_group.permissions.add(add_event_request_application)
 senior_customer_service_officer_group.permissions.add(view_eventrequestapplication)
