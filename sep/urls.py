@@ -19,7 +19,7 @@ urlpatterns = [
     path('budget-requests', staff_member_required(login_required(views.ExtraBudgetRequestList.as_view())), name='list_budget_request'),
     path('budget-requests/<int:pk>', staff_member_required(login_required(views.ExtraBudgetRequestUpdate.as_view())), name='update_budget_request'),
     
-    path('staff-requests/create', staff_member_required(login_required(views.StaffRequestCreate.as_view()), name='create_staff_request'),
-    path('staff-requests', staff_member_required(login_required(views.StaffRequestList.as_view()), name='list_staff_request'),
-    path('staff-requests/<int:pk>', staff_member_required(login_required(views.StaffRequestUpdate.as_view()), name='update_staff_request'),
+    path('staff-requests/create', staff_member_required(login_required(views.StaffRequestCreate.as_view())), name='create_staff_request'),
+    path('staff-requests', staff_member_required(login_required(views.StaffRequestList.as_view())), name='list_staff_request'),
+    path('staff-requests/<int:pk>', staff_member_required(login_required(views.StaffRequestUpdate.as_view())), name='update_staff_request'),
 ]
