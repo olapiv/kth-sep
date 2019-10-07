@@ -24,6 +24,8 @@ urlpatterns = [
     path(r'', RedirectView.as_view(url=reverse_lazy('home'), permanent=False)),
     path('admin/', admin.site.urls),
     path('sep/', include('sep.urls')),
+
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 handler403 = 'sep.views.forbidden_handler'

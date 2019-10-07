@@ -6,7 +6,7 @@
     <h1>Subteam tasks</h1>
     <ul>
     {% for task in object_list %}
-        <li><a href="{% url 'update_task' task.id %}">{{ task.name }}</a></li>
+        <li><a href="{% url 'update_task' task.id %}">{{ task.name }}</a> created by {{ task.user }}</li>
     {% empty %}
         <li>No tasks yet.</li>
     {% endfor %}

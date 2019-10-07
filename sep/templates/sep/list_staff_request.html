@@ -6,7 +6,7 @@
     <h1>Staff requests</h1>
     <ul>
     {% for request in object_list %}
-        <li><a href="{% url 'update_staff_request' request.id %}">{{ request.title }}</a></li>
+        <li><a href="{% url 'update_staff_request' request.id %}">{{ request.title }}</a> requested by {{ request.user }}</li>
     {% empty %}
         <li>No staff requests yet.</li>
     {% endfor %}

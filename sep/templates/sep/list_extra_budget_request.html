@@ -6,7 +6,7 @@
     <h1>Extra budget requests</h1>
     <ul>
     {% for request in object_list %}
-        <li><a href="{% url 'update_budget_request' request.id %}">{{ request.reason }}</a></li>
+        <li><a href="{% url 'update_budget_request' request.id %}">{{ request.reason }}</a> requested by {{ request.user }}</li>
     {% empty %}
         <li>No extra budget requests yet.</li>
     {% endfor %}

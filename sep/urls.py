@@ -1,14 +1,15 @@
 from django.urls import path
-from django.views.generic.base import RedirectView
-from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.admin.views.decorators import staff_member_required
+# from django.urls import reverse_lazy
+# from django.contrib.auth.decorators import login_required, permission_required
+# from django.contrib.auth import Log
+# from django.contrib.admin.views.decorators import staff_member_required
 from sep import views
 # from django.conf.urls.defaults import handler404, handler500
 
 
 urlpatterns = [
     path('home', views.HomeView.as_view(), name='home'),
+    # path('/logout', views.logout_view, name='logout'),
 
     path('applications/create', views.EventRequestApplicationCreate.as_view(), name='create_application'),
     path('applications', views.EventRequestApplicationList.as_view(), name="list_applications"),

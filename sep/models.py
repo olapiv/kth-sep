@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class EventRequestApplication(models.Model):
@@ -9,16 +10,6 @@ class EventRequestApplication(models.Model):
     date_to = models.DateField()
     expected_number_of_attendees = models.IntegerField()
     expected_budget = models.IntegerField()
-
-    class STATUS:
-        created = 'created'
-        approved_by_scs = 'approved_by_scs'
-
-    STATUS_CHOICES = (
-        (STATUS.created, 'created'),
-        (STATUS.approved_by_scs, 'approved_by_scs')
-    )
-    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=STATUS.created)
 
     approved_by_senior_customer_service_officer = models.BooleanField(default=False)
     approved_by_financial_manager = models.BooleanField(default=False)
@@ -41,6 +32,13 @@ class SubteamTask(models.Model):
     )
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=STATUS.todo)
 
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='subteam_tasks'
+    )
+
 
 class ExtraBudgetRequest(models.Model):
     amount_required = models.IntegerField()
@@ -60,6 +58,13 @@ class ExtraBudgetRequest(models.Model):
     )
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=STATUS.requested)
 
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='extra_budget_requests'
+    )
+
 
 class StaffRequest(models.Model):
     title = models.CharField(max_length=255)
@@ -76,3 +81,10 @@ class StaffRequest(models.Model):
     )
     contract_type = models.CharField(max_length=50, choices=CONTRACT_TYPE_CHOICES, default=CONTRACT_TYPE.full_time)
     years_of_experience = models.IntegerField()
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='staff_requests'
+    )
