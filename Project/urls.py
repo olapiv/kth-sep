@@ -21,7 +21,9 @@ from django.urls import reverse_lazy
 
 
 urlpatterns = [
-    path(r'', RedirectView.as_view(url=reverse_lazy('create_application'), permanent=False)),
+    path(r'', RedirectView.as_view(url=reverse_lazy('home'), permanent=False)),
     path('admin/', admin.site.urls),
     path('sep/', include('sep.urls')),
 ]
+
+handler403 = 'sep.views.forbidden_handler'

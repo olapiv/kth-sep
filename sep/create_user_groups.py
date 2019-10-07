@@ -22,7 +22,9 @@ except:
     customer_service_officer_1 = User.objects.get_or_create(
         username='customer_service_officer_1',
     )[0]
-customer_service_officer_group.user_set.add(customer_service_officer_1)
+
+customer_service_officer_1.groups.add(customer_service_officer_group)
+# customer_service_officer_group.user_set.add(customer_service_officer_1)
 
 try:
     senior_customer_service_officer_1 = User.objects.create_user(
@@ -34,8 +36,9 @@ except:
     senior_customer_service_officer_1 = User.objects.get_or_create(
         username='senior_customer_service_officer_1',
     )[0]
-    
-senior_customer_service_officer_group.user_set.add(senior_customer_service_officer_1)
+
+senior_customer_service_officer_1.groups.add(senior_customer_service_officer_group)
+# senior_customer_service_officer_group.user_set.add(senior_customer_service_officer_1)
 
 try:
     financial_manager_1 = User.objects.create_user(
@@ -48,7 +51,8 @@ except:
         username='financial_manager_1',
     )[0]
 
-financial_manager_group.user_set.add(financial_manager_1)
+financial_manager_1.groups.add(financial_manager_group)
+# financial_manager_group.user_set.add(financial_manager_1)
 
 try:
     administration_manager_1 = User.objects.create_user(
@@ -61,7 +65,8 @@ except:
         username='administration_manager_1',
     )[0]
 
-administration_manager_group.user_set.add(administration_manager_1)
+administration_manager_1.groups.add(administration_manager_group)
+# administration_manager_group.user_set.add(administration_manager_1)
 
 try:
     hr_manager_1 = User.objects.create_user(
@@ -74,7 +79,8 @@ except:
         username='hr_manager_1',
     )[0]
 
-hr_manager_group.user_set.add(hr_manager_1)
+hr_manager_1.groups.add(hr_manager_group)
+# hr_manager_group.user_set.add(hr_manager_1)
 
 # user = authenticate(username=customer_service_officer_1, password="abc123")
 

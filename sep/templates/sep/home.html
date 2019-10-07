@@ -1,0 +1,102 @@
+{% extends 'sep/base.html' %}
+
+{% load static %}
+
+{% block style %}
+    <style>
+
+        a {
+            color: pink;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div
+    style="  
+        display:flex;
+        flex-direction: column;
+        justify-content:flex-start;
+        align-items:center;
+        background-image: url('https://cdn.dnaindia.com/sites/default/files/styles/full/public/2018/11/20/755485-heaven-istock-111818.jpg');
+        background-repeat: no-repeat;
+        background-position: right top;
+        background-size: cover;
+        width: 100%;
+        height:100%;
+        padding: 30px;
+        font-size: 15px;
+        "
+>
+
+    <h1>Home</h1>
+
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
+    {% else %}
+        <p>Welcome, new user. Please log in.</p>
+    {% endif %}
+
+    <ul>
+
+        {% if perms.sep.add_eventrequestapplication %}
+            <li><a href={% url 'create_application' %}>Add event request application</a></li>
+        {% else %}
+            <li>You cannot add event request applications - check <a href={% url 'create_application' %}>here</a></li>
+        {% endif %}
+
+        {% if perms.sep.view_eventrequestapplication %}
+            <li><a href={% url 'list_applications' %}>View event request applications</a></li>
+        {% else %}
+            <li>You cannot view event request applications - check <a href={% url 'list_applications' %}>here</a></li>
+        {% endif %}
+
+        <hr>
+
+        {% if perms.sep.add_subteamtask %}
+            <li><a href={% url 'create_task' %}>Add subteam task</a></li>
+        {% else %}
+            <li>You cannot add subteam tasks - check <a href={% url 'create_task' %}>here</a></li>
+        {% endif %}
+
+        {% if perms.sep.view_subteamtask %}
+            <li><a href={% url 'list_tasks' %}>View sub team tasks</a></li>
+        {% else %}
+            <li>You cannot view sub team tasks - check <a href={% url 'list_tasks' %}>here</a></li>
+        {% endif %}
+
+        <hr>
+
+        {% if perms.sep.add_extrabudgetrequest %}
+            <li><a href={% url 'create_budget_request' %}>Add extra budget request</a></li>
+        {% else %}
+            <li>You cannot add extra budget requests - check <a href={% url 'create_budget_request' %}>here</a></li>
+        {% endif %}
+
+        {% if perms.sep.view_extrabudgetrequest %}
+            <li><a href={% url 'list_budget_request' %}>View extra budget requests</a></li>
+        {% else %}
+            <li>You cannot view extra budget requests - check <a href={% url 'list_budget_request' %}>here</a></li>
+        {% endif %}
+
+        <hr>
+
+        {% if perms.sep.add_staffrequest %}
+            <li><a href={% url 'create_staff_request' %}>Add staff requests</a></li>
+        {% else %}
+            <li>You cannot add staff requests - check <a href={% url 'create_staff_request' %}>here</a></li>
+        {% endif %}
+
+        {% if perms.sep.view_staffrequest %}
+            <li><a href={% url 'list_staff_request' %}>View staff requests</a></li>
+        {% else %}
+            <li>You cannot view staff requests - check <a href={% url 'list_staff_request' %}>here</a></li>
+        {% endif %}
+
+    </ul>
+
+</div>
+
+{% endblock %}

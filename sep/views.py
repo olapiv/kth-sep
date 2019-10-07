@@ -1,6 +1,26 @@
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
+from django.views.generic.base import TemplateView
 from sep.models import EventRequestApplication, SubteamTask, ExtraBudgetRequest, StaffRequest
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
+
+def forbidden_handler(request, exception=None):
+    from django.shortcuts import render
+    return render(request, 'sep/403.html', status=403)
+
+
+class RedirectAdminLoginMixin(LoginRequiredMixin):
+    login_url = '/admin/login/?next=/admin/'
+
+
+class HomeView(RedirectAdminLoginMixin, TemplateView):
+    template_name = "sep/home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['latest_articles'] = Article.objects.all()[:5]
+        return context
 
 
 # Application
@@ -11,15 +31,16 @@ class EventRequestApplicationFormMixin(object):
     fields = '__all__'
 
 
-class EventRequestApplicationUpdate(EventRequestApplicationFormMixin, UpdateView):
-    pass
+class EventRequestApplicationUpdate(RedirectAdminLoginMixin, PermissionRequiredMixin, EventRequestApplicationFormMixin, UpdateView):
+    permission_required = 'sep.change_eventrequestapplication'
 
 
-class EventRequestApplicationCreate(EventRequestApplicationFormMixin, CreateView):
-    pass
+class EventRequestApplicationCreate(RedirectAdminLoginMixin, PermissionRequiredMixin, EventRequestApplicationFormMixin, CreateView):
+    permission_required = 'sep.add_eventrequestapplication'
 
 
-class EventRequestApplicationList(ListView):
+class EventRequestApplicationList(RedirectAdminLoginMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'sep.view_eventrequestapplication'
     model = EventRequestApplication
     template_name = 'sep/list_application.html'
 
@@ -32,15 +53,16 @@ class SubteamTaskFormMixin(object):
     fields = '__all__'
 
 
-class SubteamTaskUpdate(SubteamTaskFormMixin, UpdateView):
-    pass
+class SubteamTaskUpdate(RedirectAdminLoginMixin, PermissionRequiredMixin, SubteamTaskFormMixin, UpdateView):
+    permission_required = 'sep.change_subteamtask'
 
 
-class SubteamTaskCreate(SubteamTaskFormMixin, CreateView):
-    pass
+class SubteamTaskCreate(RedirectAdminLoginMixin, PermissionRequiredMixin, SubteamTaskFormMixin, CreateView):
+    permission_required = 'sep.add_subteamtask'
 
 
-class SubteamTaskList(ListView):
+class SubteamTaskList(RedirectAdminLoginMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'sep.view_subteamtask'
     model = SubteamTask
     template_name = 'sep/list_subteam_tasks.html'
 
@@ -53,15 +75,16 @@ class ExtraBudgetRequestFormMixin(object):
     fields = '__all__'
 
 
-class ExtraBudgetRequestUpdate(ExtraBudgetRequestFormMixin, UpdateView):
-    pass
+class ExtraBudgetRequestUpdate(RedirectAdminLoginMixin, PermissionRequiredMixin, ExtraBudgetRequestFormMixin, UpdateView):
+    permission_required = 'sep.change_extrabudgetrequest'
 
 
-class ExtraBudgetRequestCreate(ExtraBudgetRequestFormMixin, CreateView):
-    pass
+class ExtraBudgetRequestCreate(RedirectAdminLoginMixin, PermissionRequiredMixin, ExtraBudgetRequestFormMixin, CreateView):
+    permission_required = 'sep.add_extrabudgetrequest'
 
 
-class ExtraBudgetRequestList(ListView):
+class ExtraBudgetRequestList(RedirectAdminLoginMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'sep.view_extrabudgetrequest'
     model = ExtraBudgetRequest
     template_name = 'sep/list_extra_budget_request.html'
 
@@ -74,14 +97,15 @@ class StaffRequestFormMixin(object):
     fields = '__all__'
 
 
-class StaffRequestUpdate(StaffRequestFormMixin, UpdateView):
-    pass
+class StaffRequestUpdate(RedirectAdminLoginMixin, PermissionRequiredMixin, StaffRequestFormMixin, UpdateView):
+    permission_required = 'sep.change_staffrequest'
 
 
-class StaffRequestCreate(StaffRequestFormMixin, CreateView):
-    pass
+class StaffRequestCreate(RedirectAdminLoginMixin, PermissionRequiredMixin, StaffRequestFormMixin, CreateView):
+    permission_required = 'sep.add_staffrequest'
 
 
-class StaffRequestList(ListView):
+class StaffRequestList(RedirectAdminLoginMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'sep.view_staffrequest'
     model = StaffRequest
     template_name = 'sep/list_staff_request.html'

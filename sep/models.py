@@ -20,6 +20,10 @@ class EventRequestApplication(models.Model):
     )
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=STATUS.created)
 
+    approved_by_senior_customer_service_officer = models.BooleanField(default=False)
+    approved_by_financial_manager = models.BooleanField(default=False)
+    approved_by_admin_manager = models.BooleanField(default=False)
+
 
 class SubteamTask(models.Model):
     name = models.CharField(max_length=255)
