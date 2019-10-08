@@ -80,6 +80,7 @@ Running this project will be fairly straightfoward.
 | customer_service_officer_1 | abc123 |
 | senior_customer_service_officer_1 | abc123 |
 | financial_manager_1 | abc123 |
-| staff_manager_1 | abc123 |
+| production_manager_1 | abc123 |
+| service_manager_1 | abc123 |
 | administration_manager_1 | abc123 |
 | hr_manager_1 | abc123 |
