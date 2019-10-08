@@ -5,16 +5,12 @@ This project was a KTH assignment for Modern Methods of Software Engineering. It
 1. Customer service officers, taking bookings ("event request applications") from a client
 2. Senior customer sevice officers and administration manager that approve the event bookings
 3. Financial managers that
-
-    ⋅⋅* approves these bookings
-    ⋅⋅* approves budget requests
-
+   * approves these bookings
+   * approves budget requests
 4. Staff managers, that
-
-    ⋅⋅* creates budget requests
-    ⋅⋅* create subteam tasks
-    ⋅⋅* create staff requests
-
+   * creates budget requests
+   * create subteam tasks
+   * create staff requests
 5. HR managers that view staff requests
 
 ## Installing Project
