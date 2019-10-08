@@ -88,6 +88,12 @@ local_settings.py
 
 .env
 .idea/
-vscode/
+
+### VS Code ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
 venv/
