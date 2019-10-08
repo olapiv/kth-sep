@@ -6,7 +6,13 @@
     <h1>Applications</h1>
     <ul>
     {% for application in object_list %}
-        <li><a href={% url 'update_application' application.id %}>{{ application.event_name }}</a></li>
+
+        {% if perms.sep.change_eventrequestapplication %}
+            <li><a href={% url 'update_application' application.id %}>{{ application.event_name }}</a></li>
+        {% else %}
+            <li><a href={% url 'view_application' application.id %}>{{ application.event_name }}</a></li>
+        {% endif %}
+
     {% empty %}
         <li>No applications yet.</li>
     {% endfor %}

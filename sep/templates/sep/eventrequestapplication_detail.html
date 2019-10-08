@@ -1,0 +1,19 @@
+{% extends 'sep/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <h1><b>event_name:</b> {{ object.event_name }}</h1>
+    <p><b>client_name:</b> {{ object.client_name }}</p>
+    <p><b>event_type:</b> {{ object.event_type }}</p>
+    <p><b>date_from:</b> {{ object.date_from|date }}</p>
+    <p><b>date_to:</b> {{ object.date_to|date }}</p>
+    <p><b>expected_number_of_attendees:</b> {{ object.expected_number_of_attendees }}</p>
+    <p><b>expected_budget:</b> {{ object.expected_budget }}</p>
+    <p><b>approved_by_senior_customer_service_officer:</b> {{ object.approved_by_senior_customer_service_officer }}</p>
+    <p><b>approved_by_financial_manager:</b> {{ object.approved_by_financial_manager }}</p>
+    <p><b>approved_by_admin_manager:</b> {{ object.approved_by_admin_manager }}</p>
+    <p><b>user:</b> {{ object.user }}</p>
+
+{% endblock %}

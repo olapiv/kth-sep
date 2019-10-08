@@ -24,7 +24,6 @@ except:
     )[0]
 
 customer_service_officer_1.groups.add(customer_service_officer_group)
-# customer_service_officer_group.user_set.add(customer_service_officer_1)
 
 try:
     senior_customer_service_officer_1 = User.objects.create_user(
@@ -38,7 +37,6 @@ except:
     )[0]
 
 senior_customer_service_officer_1.groups.add(senior_customer_service_officer_group)
-# senior_customer_service_officer_group.user_set.add(senior_customer_service_officer_1)
 
 try:
     financial_manager_1 = User.objects.create_user(
@@ -52,7 +50,19 @@ except:
     )[0]
 
 financial_manager_1.groups.add(financial_manager_group)
-# financial_manager_group.user_set.add(financial_manager_1)
+
+try:
+    staff_manager_1 = User.objects.create_user(
+        username='staff_manager_1',
+        password='abc123',
+        is_staff=True
+    )
+except:
+    staff_manager_1 = User.objects.get_or_create(
+        username='staff_manager_1',
+    )[0]
+
+staff_manager_1.groups.add(staff_manager_group)
 
 try:
     administration_manager_1 = User.objects.create_user(
@@ -66,7 +76,6 @@ except:
     )[0]
 
 administration_manager_1.groups.add(administration_manager_group)
-# administration_manager_group.user_set.add(administration_manager_1)
 
 try:
     hr_manager_1 = User.objects.create_user(
@@ -80,7 +89,6 @@ except:
     )[0]
 
 hr_manager_1.groups.add(hr_manager_group)
-# hr_manager_group.user_set.add(hr_manager_1)
 
 # user = authenticate(username=customer_service_officer_1, password="abc123")
 
@@ -139,3 +147,4 @@ staff_manager_group.permissions.add(change_subteamtask)
 staff_manager_group.permissions.add(view_subteamtask)
 
 
+# Problem: only add and view

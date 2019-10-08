@@ -1,4 +1,5 @@
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
 from sep.models import EventRequestApplication, SubteamTask, ExtraBudgetRequest, StaffRequest
@@ -36,46 +37,54 @@ class EventRequestApplicationForm(ModelForm):
 class EventRequestApplicationCSOForm(ModelForm):
     class Meta:
         model = EventRequestApplication
-        exclude = ('user',)
+        # exclude = ('user',)
+        exclude = ()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['approved_by_senior_customer_service_officer'].disabled = True
         self.fields['approved_by_financial_manager'].disabled = True
         self.fields['approved_by_admin_manager'].disabled = True
+        self.fields['user'].disabled = True
 
 
 class EventRequestApplicationSCSOForm(ModelForm):
     class Meta:
         model = EventRequestApplication
-        exclude = ('user',)
+        # exclude = ('user',)
+        exclude = ()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['approved_by_financial_manager'].disabled = True
         self.fields['approved_by_admin_manager'].disabled = True
+        self.fields['user'].disabled = True
 
 
 class EventRequestApplicationAMForm(ModelForm):
     class Meta:
         model = EventRequestApplication
-        exclude = ('user',)
+        # exclude = ('user',)
+        exclude = ()
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['approved_by_senior_customer_service_officer'].disabled = True
         self.fields['approved_by_financial_manager'].disabled = True
+        self.fields['user'].disabled = True
 
 
 class EventRequestApplicationFMForm(ModelForm):
     class Meta:
         model = EventRequestApplication
-        exclude = ('user',)
+        # exclude = ('user',)
+        exclude = ()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['approved_by_senior_customer_service_officer'].disabled = True
         self.fields['approved_by_admin_manager'].disabled = True
+        self.fields['user'].disabled = True
 
 
 class EventRequestApplicationFormMixin(object):
@@ -87,7 +96,7 @@ class EventRequestApplicationFormMixin(object):
         user = self.request.user
         if user.is_superuser:
             return EventRequestApplicationForm
-        elif user.groups.filter(name = "customer_service_officer").exists():
+        elif user.groups.filter(name = "customer_service_officer").exists() or user.groups.filter(name = "staff_manager").exists():
             return EventRequestApplicationCSOForm
         elif user.groups.filter(name = "senior_customer_service_officer").exists():
             return EventRequestApplicationSCSOForm
@@ -95,11 +104,6 @@ class EventRequestApplicationFormMixin(object):
             return EventRequestApplicationAMForm
         elif user.groups.filter(name = "financial_manager").exists():
             return EventRequestApplicationFMForm
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        print("form.instance.user: ", form.instance.user)
-        return super().form_valid(form)
 
 
 class EventRequestApplicationUpdate(RedirectAdminLoginMixin, PermissionRequiredMixin, EventRequestApplicationFormMixin, UpdateView):
@@ -109,6 +113,15 @@ class EventRequestApplicationUpdate(RedirectAdminLoginMixin, PermissionRequiredM
 class EventRequestApplicationCreate(RedirectAdminLoginMixin, PermissionRequiredMixin, EventRequestApplicationFormMixin, CreateView):
     permission_required = 'sep.add_eventrequestapplication'
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+# Just for testing:
+class EventRequestApplicationDetail(RedirectAdminLoginMixin, PermissionRequiredMixin, DetailView):
+    model = EventRequestApplication
+    permission_required = 'sep.view_eventrequestapplication'
+
 
 class EventRequestApplicationList(RedirectAdminLoginMixin, PermissionRequiredMixin, ListView):
     permission_required = 'sep.view_eventrequestapplication'
@@ -117,7 +130,7 @@ class EventRequestApplicationList(RedirectAdminLoginMixin, PermissionRequiredMix
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_superuser or user.groups.filter(name = "senior_customer_service_officer").exists():
+        if user.is_superuser or user.groups.filter(name = "senior_customer_service_officer").exists() or user.groups.filter(name = "staff_manager").exists():
             return EventRequestApplication.objects.all()
         elif user.groups.filter(name = "customer_service_officer").exists():
             return EventRequestApplication.objects.filter(user=user).all()
