@@ -52,17 +52,30 @@ except:
 financial_manager_1.groups.add(financial_manager_group)
 
 try:
-    staff_manager_1 = User.objects.create_user(
-        username='staff_manager_1',
+    production_manager_1 = User.objects.create_user(
+        username='production_manager_1',
         password='abc123',
         is_staff=True
     )
 except:
-    staff_manager_1 = User.objects.get_or_create(
-        username='staff_manager_1',
+    production_manager_1 = User.objects.get_or_create(
+        username='production_manager_1',
     )[0]
 
-staff_manager_1.groups.add(staff_manager_group)
+production_manager_1.groups.add(staff_manager_group)
+
+try:
+    service_manager_1 = User.objects.create_user(
+        username='service_manager_1',
+        password='abc123',
+        is_staff=True
+    )
+except:
+    service_manager_1 = User.objects.get_or_create(
+        username='service_manager_1',
+    )[0]
+
+service_manager_1.groups.add(staff_manager_group)
 
 try:
     administration_manager_1 = User.objects.create_user(
